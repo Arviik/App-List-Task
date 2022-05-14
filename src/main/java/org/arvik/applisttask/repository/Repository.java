@@ -3,13 +3,13 @@ package org.arvik.applisttask.repository;
 import org.arvik.applisttask.database.Database;
 
 public abstract class Repository {
-    private final Database database;
+    private static final Database database = new Database();
 
     public Repository() {
-        database = new Database();
+
     }
 
-    public Database getDatabase() {
+    public static Database getDatabase() {
         return database;
     }
 }

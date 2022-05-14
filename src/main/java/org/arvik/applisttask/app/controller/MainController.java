@@ -11,7 +11,6 @@ import javafx.scene.control.Tab;
 import org.arvik.applisttask.MainApp;
 import org.arvik.applisttask.modele.*;
 import org.arvik.applisttask.repository.*;
-
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Comparator;

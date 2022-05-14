@@ -25,16 +25,6 @@ public class UserRepository extends Repository {
             req.setBoolean(5, user.isEstAdmin());
             req.setInt(6, user.getId_compte());
             req.executeUpdate();
-        } try {
-            getDatabase().getCnx().close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                getDatabase().getCnx().close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         } return user;
     }
 
@@ -62,12 +52,6 @@ public class UserRepository extends Repository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                getDatabase().getCnx().close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         } return users;
     }
 
@@ -89,12 +73,6 @@ public class UserRepository extends Repository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                getDatabase().getCnx().close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         } return user;
     }
 
@@ -116,12 +94,6 @@ public class UserRepository extends Repository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                getDatabase().getCnx().close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         } return user;
     }
 
@@ -144,12 +116,6 @@ public class UserRepository extends Repository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                getDatabase().getCnx().close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         } return users;
     }
 
@@ -172,12 +138,6 @@ public class UserRepository extends Repository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                getDatabase().getCnx().close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         } return user;
     }
 

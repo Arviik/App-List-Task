@@ -1,5 +1,7 @@
 package org.arvik.applisttask.modele;
 
+import org.arvik.applisttask.repository.TaskRepository;
+
 import java.util.ArrayList;
 
 public class List {
@@ -9,12 +11,12 @@ public class List {
     private ArrayList<User> users;
     private ArrayList<Task> tasks;
 
-    public List(int id_liste, String libelle, String description, ArrayList<User> users, ArrayList<Task> tasks) {
+    public List(int id_liste, String libelle, String description, ArrayList<User> users) {
         this.id_liste = id_liste;
         this.libelle = libelle;
         this.description = description;
         this.users = users;
-        this.tasks = tasks;
+        this.tasks = new TaskRepository().getTasksByList(this);
     }
 
     public List(String libelle, String description) {

@@ -1,5 +1,6 @@
 package org.arvik.applisttask.repository;
 
+import org.arvik.applisttask.modele.List;
 import org.arvik.applisttask.modele.Task;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -51,7 +52,7 @@ public class TaskRepository extends Repository {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             PreparedStatement req = getDatabase().getCnx().prepareStatement("Select * FROM tache;");
-            fillArrayListofTask(tasks, req);
+            fillArrayListofTask(tasks, req, null);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -63,24 +64,18 @@ public class TaskRepository extends Repository {
         } return tasks;
     }
 
-    public ArrayList<Task> getTasksByList(int id_tache) {
+    public ArrayList<Task> getTasksByList(List list) {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             PreparedStatement req = getDatabase().getCnx().prepareStatement("Select * FROM tache WHERE ref_liste = ?;");
-            req.setInt(1, id_tache);
-            fillArrayListofTask(tasks, req);
+            req.setInt(1, list.getId_liste());
+            fillArrayListofTask(tasks, req, list);
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                getDatabase().getCnx().close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         } return tasks;
     }
 
-    private void fillArrayListofTask(ArrayList<Task> tasks, PreparedStatement req) {
+    private void fillArrayListofTask(ArrayList<Task> tasks, PreparedStatement req, List list) {
         try {
             ResultSet res = req.executeQuery();
             while (res.next()) {
@@ -93,19 +88,14 @@ public class TaskRepository extends Repository {
                         res.getString(6),
                         res.getString(7),
                         userRepo.getUser(res.getInt(8)),
-                        listRepo.getList(res.getInt(9), new TaskRepository()),
+                        list,//listRepo.getList(res.getInt(9), new TaskRepository()),
                         stateRepo.getState(res.getInt(10)),
                         typeRepo.getType(res.getInt(11))
                 ));
             }
+            req.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                getDatabase().getCnx().close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 

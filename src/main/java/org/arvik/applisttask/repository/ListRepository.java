@@ -61,8 +61,7 @@ public class ListRepository extends Repository {
                         res.getInt(1),
                         res.getString(2),
                         res.getString(3),
-                        userRepo.getUserByList(res.getInt(1)),
-                        taskRepo.getTasksByList(res.getInt(1))
+                        userRepo.getUserByList(res.getInt(1))
                 ));
             }
         } catch (SQLException e) {
@@ -87,9 +86,9 @@ public class ListRepository extends Repository {
                         res.getInt(1),
                         res.getString(2),
                         res.getString(3),
-                        userRepo.getUserByList(res.getInt(1)),
-                        taskRepo.getTasksByList(res.getInt(1))
+                        userRepo.getUserByList(res.getInt(1))
                 );
+                list.setTasks(taskRepo.getTasksByList(list));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -114,8 +113,7 @@ public class ListRepository extends Repository {
                         res.getInt(1),
                         res.getString(2),
                         res.getString(3),
-                        userRepo.getUserByList(res.getInt(1)),
-                        taskRepo.getTasksByList(res.getInt(1))
+                        userRepo.getUserByList(res.getInt(1))
                 ));
             }
         } catch (SQLException e) {
