@@ -2,6 +2,8 @@ package org.arvik.applisttask.repository;
 
 import org.arvik.applisttask.modele.List;
 import org.arvik.applisttask.modele.Task;
+import org.arvik.applisttask.modele.User;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -72,6 +74,13 @@ public class TaskRepository extends Repository {
             fillArrayListofTask(tasks, req, list);
         } catch (SQLException e) {
             e.printStackTrace();
+        } return tasks;
+    }
+
+    public ArrayList<Task> getTasksByLists(ArrayList<List> lists) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (List list : lists){
+            tasks.addAll(getTasksByList(list));
         } return tasks;
     }
 

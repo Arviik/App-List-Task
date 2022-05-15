@@ -39,4 +39,12 @@ public class Type {
     public void setRef_type(Type ref_type) {
         this.ref_type = ref_type;
     }
+
+    public String getRef_typeLibelle(){
+        if (this.ref_type == null) {
+            return "";
+        } else {
+            return this.ref_type.getLibelle();
+        }
+    }
 }

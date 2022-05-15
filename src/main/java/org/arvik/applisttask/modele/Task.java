@@ -99,12 +99,20 @@ public class Task {
         return ref_compte;
     }
 
+    public String getRef_compteToString() {
+        return this.ref_compte.toString();
+    }
+
     public void setRef_compte(User ref_compte) {
         this.ref_compte = ref_compte;
     }
 
     public List getRef_liste() {
         return ref_liste;
+    }
+
+    public String getRef_listeLibelle() {
+        return this.ref_liste.getLibelle();
     }
 
     public void setRef_liste(List ref_liste) {
@@ -115,12 +123,24 @@ public class Task {
         return ref_etat;
     }
 
+    public String getRef_etatEtat() {
+        return this.ref_etat.getEtat();
+    }
+
     public void setRef_etat(State ref_etat) {
         this.ref_etat = ref_etat;
     }
 
     public Type getRef_type() {
         return ref_type;
+    }
+
+    public String getRef_typeLibelle() {
+        if (this.ref_type == null) {
+            return "";
+        } else {
+            return this.ref_type.getLibelle();
+        }
     }
 
     public void setRef_type(Type ref_type) {

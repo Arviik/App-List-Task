@@ -15,10 +15,12 @@ public class MainApp extends Application {
     @Override
     public void start(Stage firststage) {
         stage = firststage;
-        //stage.setResizable(false);
+        stage.setResizable(false);
         stage.setTitle("App List Task");
         stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/Task.png"))));
         changeScene("/view/sign_In_Up-view", new Sign_In_UpController());
+        stage.setMinHeight(stage.getHeight());
+        stage.setMinWidth(stage.getWidth());
     }
 
     public static void main(String[] args) {
@@ -37,7 +39,7 @@ public class MainApp extends Application {
         }
     }
 
-    public Stage getStage() {
+    public static Stage getStage() {
         return stage;
     }
 }

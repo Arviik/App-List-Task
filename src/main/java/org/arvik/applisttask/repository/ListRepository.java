@@ -101,7 +101,7 @@ public class ListRepository extends Repository {
         } return list;
     }
 
-    public ArrayList<List> getListsByUser(User user, TaskRepository taskRepo) {
+    public ArrayList<List> getListsByUser(User user) {
         ArrayList<List> lists = new ArrayList<>();
         try {
             PreparedStatement req = getDatabase().getCnx().prepareStatement("Select liste.* FROM liste LEFT JOIN gere ON liste.id_liste = gere.ref_liste WHERE ref_compte = ?");

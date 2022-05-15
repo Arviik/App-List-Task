@@ -11,14 +11,15 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 public class Sign_In_UpController {
+    private final UserRepository userRepo = new UserRepository();
     @FXML private MFXTextField loginEmail;
     @FXML private MFXPasswordField loginPassword;
     @FXML private Label loginValidationLabel;
 
     @FXML void onLoginButtonClick() {
-        UserRepository userRepo = new UserRepository();
         User user = userRepo.connexion(loginEmail.getText(), loginPassword.getText());
         if (user != null) {
+            MainApp.getStage().setResizable(true);
             MainApp.changeScene("/view/main-view", new MainController(user));
         } else {
             loginValidationLabel.setVisible(true);
@@ -37,7 +38,6 @@ public class Sign_In_UpController {
     @FXML private Label signInValidationLabel;
 
     @FXML void onSignInButtonClick() {
-        UserRepository userRepo = new UserRepository();
         User user = null;
         try {
             user = userRepo.save(new User(
@@ -55,6 +55,7 @@ public class Sign_In_UpController {
         }
         assert user != null;
         if (user.getId_compte() != 0) {
+            MainApp.getStage().setResizable(true);
             MainApp.changeScene("/view/main-view", new MainController(user));
         }
     }
