@@ -92,12 +92,6 @@ public class ListRepository extends Repository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                getDatabase().getCnx().close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         } return list;
     }
 

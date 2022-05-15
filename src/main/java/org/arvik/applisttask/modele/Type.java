@@ -1,14 +1,18 @@
 package org.arvik.applisttask.modele;
 
+import org.arvik.applisttask.repository.TypeRepository;
+
 public class Type {
     private int id_type;
     private String libelle;
     private Type ref_type;
 
-    public Type(int id_type, String libelle, Type ref_type) {
+    public Type(int id_type, String libelle, int ref_typeId) {
         this.id_type = id_type;
         this.libelle = libelle;
-        this.ref_type = ref_type;
+        if (ref_typeId != 0) {
+            this.ref_type = new TypeRepository().getType(ref_typeId);
+        }
     }
 
     public Type(String libelle, Type ref_type) {

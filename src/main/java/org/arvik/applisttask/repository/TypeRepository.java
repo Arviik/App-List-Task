@@ -41,7 +41,7 @@ public class TypeRepository extends Repository {
                 types.add(new Type(
                         res.getInt(1),
                         res.getString(2),
-                        getType(res.getInt(3))
+                        res.getInt(3)
                 ));
             }
         } catch (SQLException e) {
@@ -59,7 +59,7 @@ public class TypeRepository extends Repository {
                 type = new Type(
                         res.getInt(1),
                         res.getString(2),
-                        getType(res.getInt(3))
+                        res.getInt(3)
                 );
             }
         } catch (SQLException e) {

@@ -139,7 +139,7 @@ public class MainController implements Initializable {
         taskListComboBox.getItems().addAll(listRepo.getListsByUser(user));
         taskListComboBox.setConverter(FunctionalStringConverter.to(list -> (list == null) ? "" : list.getLibelle()));
 
-        taskTypeComboBox.getItems().add(new Type(0,"Aucun",null));
+        taskTypeComboBox.getItems().add(new Type(0,"Aucun",0));
         taskTypeComboBox.getItems().addAll(typeRepo.getTypes());
         taskTypeComboBox.setConverter(FunctionalStringConverter.to(type -> (type == null) ? "" : type.getLibelle()));
         taskTypeComboBox.getSelectionModel().selectIndex(0);
@@ -168,7 +168,7 @@ public class MainController implements Initializable {
 
         typeTable.getItems().addAll(typeRepo.getTypes());
 
-        typeParentTypeComboBox.getItems().add(new Type(0,"Aucun",null));
+        typeParentTypeComboBox.getItems().add(new Type(0,"Aucun",0));
         typeParentTypeComboBox.getItems().addAll(typeRepo.getTypes());
         typeParentTypeComboBox.setConverter(FunctionalStringConverter.to(type -> (type == null) ? "" : type.getLibelle()));
         typeParentTypeComboBox.getSelectionModel().selectIndex(0);
@@ -186,7 +186,7 @@ public class MainController implements Initializable {
                 listUserComboBox.getSelectedItem(),
                 listListeComboBox.getSelectedItem()
         );
-        listTable.getItems().removeAll();
+        listTable.getItems().clear();
         listTable.getItems().addAll(listRepo.getListsByUser(user));
     }
     @FXML private MFXTextField listLibelleField;
@@ -196,8 +196,7 @@ public class MainController implements Initializable {
                 listLibelleField.getText(),
                 listDesField.getText()
         ));
-        listTable.getItems().removeAll();
-        listTable.getItems().addAll(listRepo.getListsByUser(user));
+        listTable.getItems().add(list);
     }
 
     /**
@@ -228,10 +227,10 @@ public class MainController implements Initializable {
         ));
         ArrayList<List> lists = listRepo.getListsByUser(user);
 
-        listTable.getItems().removeAll();
+        listTable.getItems().clear();
         listTable.getItems().addAll(lists);
 
-        taskTable.getItems().removeAll();
+        taskTable.getItems().clear();
         taskTable.getItems().addAll(taskRepo.getTasksByLists(lists));
     }
 
@@ -260,7 +259,9 @@ public class MainController implements Initializable {
                 typeLibelleField.getText(),
                 typeParentTypeComboBox.getSelectedItem()
         ));
-        typeTable.getItems().add(type);
+        typeTable.getItems().clear();
+        typeTable.getItems().addAll(typeRepo.getTypes());
+
         typeParentTypeComboBox.getItems().add(type);
     }
 
