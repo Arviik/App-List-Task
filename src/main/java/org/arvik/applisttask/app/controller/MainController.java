@@ -186,17 +186,29 @@ public class MainController implements Initializable {
                 listUserComboBox.getSelectedItem(),
                 listListeComboBox.getSelectedItem()
         );
-        listTable.getItems().clear();
-        listTable.getItems().addAll(listRepo.getListsByUser(user));
+        refreshList();
     }
     @FXML private MFXTextField listLibelleField;
     @FXML private MFXTextField listDesField;
     @FXML void onListSubmitButtonClick() throws SQLException {
-        List list = listRepo.save(user, new List(
+        listRepo.save(user, new List(
                 listLibelleField.getText(),
                 listDesField.getText()
         ));
-        listTable.getItems().add(list);
+        refreshList();
+    }
+
+    private void refreshList() {
+        ArrayList<List> lists = listRepo.getListsByUser(user);
+
+        listTable.getItems().clear();
+        listTable.getItems().addAll(lists);
+
+        listListeComboBox.getItems().clear();
+        listListeComboBox.getItems().addAll(lists);
+
+        taskListComboBox.getItems().clear();
+        taskListComboBox.getItems().addAll(lists);
     }
 
     /**
@@ -214,7 +226,7 @@ public class MainController implements Initializable {
     @FXML private MFXComboBox<Type> taskTypeComboBox;
     @FXML private MFXTableView<Task> taskTable;
     @FXML void onTaskSubmitButtonClick() throws SQLException {
-        Task task = taskRepo.save(new Task(
+        taskRepo.save(new Task(
                 taskLibelleField.getText(),
                 taskDesField.getText(),
                 taskDifField.getText(),
@@ -225,13 +237,10 @@ public class MainController implements Initializable {
                 taskListComboBox.getSelectedItem(),
                 taskTypeComboBox.getSelectedItem()
         ));
-        ArrayList<List> lists = listRepo.getListsByUser(user);
-
-        listTable.getItems().clear();
-        listTable.getItems().addAll(lists);
+        refreshList();
 
         taskTable.getItems().clear();
-        taskTable.getItems().addAll(taskRepo.getTasksByLists(lists));
+        taskTable.getItems().addAll(taskRepo.getTasksByLists(listRepo.getListsByUser(user)));
     }
 
     /**
@@ -241,9 +250,11 @@ public class MainController implements Initializable {
     @FXML private MFXTextField stateLibelleField;
     @FXML private Label stateLabel;
     @FXML void onStateSubmitButtonClick() throws SQLException {
-        State state = stateRepo.save(new State(
+        stateRepo.save(new State(
                 stateLibelleField.getText()
         ));
+        stateTable.getItems().clear();
+        stateTable.getItems().addAll(stateRepo.getStates());
     }
 
     /**
@@ -255,14 +266,20 @@ public class MainController implements Initializable {
     @FXML private MFXComboBox<Type> typeParentTypeComboBox;
     @FXML private MFXButton typeSubmitButton;
     @FXML void onTypeSubmitButtonClick() throws SQLException {
-        Type type = typeRepo.save(new Type(
+        typeRepo.save(new Type(
                 typeLibelleField.getText(),
                 typeParentTypeComboBox.getSelectedItem()
         ));
-        typeTable.getItems().clear();
-        typeTable.getItems().addAll(typeRepo.getTypes());
+        ArrayList<Type> types = typeRepo.getTypes();
 
-        typeParentTypeComboBox.getItems().add(type);
+        typeTable.getItems().clear();
+        typeTable.getItems().addAll(types);
+
+        typeParentTypeComboBox.getItems().clear();
+        typeParentTypeComboBox.getItems().addAll(types);
+
+        taskTypeComboBox.getItems().clear();
+        taskTypeComboBox.getItems().addAll(types);
     }
 
     @FXML void onTypeSwitchButtonClick() {
@@ -286,5 +303,4 @@ public class MainController implements Initializable {
     @FXML void onLogoutButtonClick() {
         MainApp.changeScene("/view/sign_In_Up-view", new Sign_In_UpController());
     }
-    //TODO permettre la modification et la suppresion
 }
